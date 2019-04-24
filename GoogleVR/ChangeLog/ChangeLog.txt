@@ -1,0 +1,5 @@
+Version 1.0
+
+1. Added a cube
+2. Added script
+3. Rotate the cube with OnEnter Trigger
