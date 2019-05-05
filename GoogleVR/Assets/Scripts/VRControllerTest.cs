@@ -6,23 +6,39 @@ public class VRControllerTest : MonoBehaviour
 {
     [SerializeField] private Transform cubeTransform;
     [SerializeField] private float speed;
-    private bool canRotate;
+    [SerializeField] private Transform cubeMovePoint;
+    private float distantToJourney, distantJournied,distantJourniedFraction, journeySpeed=1.0f, journeyStartTime;
+    private bool isTriggerdReticlePoint, isJourneyStarted;
 
     private void Update()
     {
-        if(canRotate)
+        if(isTriggerdReticlePoint)
         {
-            RotateCube();
+            //RotateCube();
+            MoveCube();
         }
     }
 
     private void RotateCube()
     {
-        cubeTransform.Rotate(Vector3.up * speed * Time.deltaTime);
+        //cubeTransform.Rotate(Vector3.up * speed * Time.deltaTime);
+        cubeTransform.Rotate(5f,8f,11f,Space.Self);
+    }
+
+    private void MoveCube()
+    {
+        distantJournied = (Time.time - journeyStartTime) * journeySpeed;
+        distantJourniedFraction = distantJournied / distantToJourney;
+        cubeTransform.position = Vector3.Lerp(cubeTransform.position, cubeMovePoint.position, distantJourniedFraction);
     }
 
     public void TriggerRotate()
     {
-        canRotate =(!canRotate);
+        isTriggerdReticlePoint =(!isTriggerdReticlePoint);
+        if(isTriggerdReticlePoint)
+        {
+            journeyStartTime = Time.time;
+            distantToJourney =Vector3.Distance(cubeMovePoint.position, cubeTransform.position);
+        }
     }       
 }
