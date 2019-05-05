@@ -4,9 +4,8 @@ using UnityEngine;
 
 public class VRControllerTest : MonoBehaviour
 {
-    [SerializeField] private Transform cubeTransform;
-    [SerializeField] private float speed;
-    [SerializeField] private Transform cubeMovePoint;
+    [SerializeField] private Transform cubeTransform, cubeMovePoint;
+    //[SerializeField] private float speed;
     private float distantToJourney, distantJournied,distantJourniedFraction, journeySpeed=1.0f, journeyStartTime;
     private bool isTriggerdReticlePoint, isJourneyStarted;
 
@@ -38,6 +37,8 @@ public class VRControllerTest : MonoBehaviour
         if(isTriggerdReticlePoint)
         {
             journeyStartTime = Time.time;
+            cubeMovePoint.position = new Vector3(cubeTransform.position.x+Random.Range(-.5f,1),
+                cubeTransform.position.y + Random.Range(-.5f, 1), cubeTransform.position.z + Random.Range(-.5f, .5f));
             distantToJourney =Vector3.Distance(cubeMovePoint.position, cubeTransform.position);
         }
     }       
